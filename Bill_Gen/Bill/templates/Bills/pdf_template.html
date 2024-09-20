@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinod Kirana General Stores - Bill</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333333;
+            line-height: 1.6;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .store-name {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 5px;
+        }
+        .store-details {
+            font-size: 14px;
+            color: #666;
+        }
+        .bill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .bill-to, .bill-details {
+            flex-basis: 48%;
+        }
+        h2 {
+            font-size: 18px;
+            color: #4CAF50;
+            border-bottom: 1px solid #4CAF50;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .table tfoot th, .table tfoot td {
+            font-weight: bold;
+            border-top: 2px solid #4CAF50;
+        }
+        .currency {
+            text-align: right;
+        }
+        .total-row {
+            font-size: 18px;
+            color: #4CAF50;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+        .terms {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #888;
+        }
+        @media print {
+            body {
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="store-name">Vinod Kirana General Stores</div>
+            <div class="store-details">
+                shopno/01 sharadha apt bekary line shidhivinayak marg bhayander west, Mumbai, India, Maharashtra<br>
+                Phone: +91 7506480616 <br>
+            </div>
+        </div>
+
+        <div class="bill-info">
+            <div class="bill-to">
+                <h2>Bill To:</h2>
+                <p>
+                    {{ customer_name }}<br>
+                    {{ customer_address }}<br>
+                    Phone: {{ customer_phone }}
+                </p>
+            </div>
+            <div class="bill-details">
+                <h2>Bill Details:</h2>
+                <p>
+                    Date: {{ current_date }}<br>
+                    Payment Method: 
+                </p>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in Product_Bill %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ item.Name }}</td>
+                    <td>{{ item.Quantity }}</td>
+                    <td class="currency">Rs {{ item.Price }}</td>
+                    <td class="currency">Rs {{ item.Total_price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr class="total-row">
+                    <th colspan="4">Total</th>
+                    <td class="currency">-/ {{ total }}</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="footer">
+            <p>Thank you for shopping with us!</p>
+            <p>For any queries, please contact us at +91 7506480616</p>
+        </div>
+    </div>
+</body>
+</html>
