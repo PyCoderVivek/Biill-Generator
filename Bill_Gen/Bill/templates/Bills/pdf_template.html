@@ -15,54 +15,75 @@
             padding: 0;
             background-color: #ffffff;
             color: #333333;
-            line-height: 1.6;
+            line-height: 1.4;
+            position: relative;
         }
         .container {
             width: 100%;
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
             padding: 20px;
             box-sizing: border-box;
+            position: relative;
         }
         .header {
             text-align: center;
             border-bottom: 2px solid #4CAF50;
             padding-bottom: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .logo-left, .logo-right {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            position: absolute;
+            top: 5px;
+            object-fit: cover;
+        }
+        .logo-left {
+            left: 5px;
+        }
+        .logo-right {
+            right: 5px;
         }
         .store-name {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
             color: #4CAF50;
             margin-bottom: 5px;
+            position: relative;
+            padding: 0 70px;
         }
         .store-details {
-            font-size: 14px;
+            font-size: 12px;
             color: #666;
         }
         .bill-info {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            font-size: 14px;
         }
         .bill-to, .bill-details {
             flex-basis: 48%;
         }
         h2 {
-            font-size: 18px;
+            font-size: 16px;
             color: #4CAF50;
             border-bottom: 1px solid #4CAF50;
-            padding-bottom: 5px;
-            margin-bottom: 10px;
+            padding-bottom: 3px;
+            margin-bottom: 5px;
         }
         .table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-top: 15px;
+            font-size: 12px;
         }
         .table th, .table td {
             border: 1px solid #ddd;
-            padding: 12px;
+            padding: 6px;
             text-align: left;
         }
         .table th {
@@ -80,19 +101,14 @@
             text-align: right;
         }
         .total-row {
-            font-size: 18px;
+            font-size: 16px;
             color: #4CAF50;
         }
         .footer {
-            margin-top: 30px;
-            text-align: center;
-            font-size: 14px;
-            color: #666;
-        }
-        .terms {
             margin-top: 20px;
+            text-align: center;
             font-size: 12px;
-            color: #888;
+            color: #666;
         }
         @media print {
             body {
@@ -105,10 +121,11 @@
 <body>
     <div class="container">
         <div class="header">
+            
             <div class="store-name">Vinod Kirana General Stores</div>
             <div class="store-details">
                 shopno/01 sharadha apt bekary line shidhivinayak marg bhayander west, Mumbai, India, Maharashtra<br>
-                Phone: +91 7506480616 <br>
+                Phone: +91 7506480616 | Email: vinodkirana@example.com
             </div>
         </div>
 
@@ -117,15 +134,15 @@
                 <h2>Bill To:</h2>
                 <p>
                     {{ customer_name }}<br>
-                    {{ customer_address }}<br>
                     Phone: {{ customer_phone }}
                 </p>
             </div>
             <div class="bill-details">
                 <h2>Bill Details:</h2>
                 <p>
+                    Invoice No: {{ invoice_number }}<br>
                     Date: {{ current_date }}<br>
-                    Payment Method: 
+                    Payment Method: {{ payment_method }}
                 </p>
             </div>
         </div>
@@ -146,22 +163,22 @@
                     <td>{{ forloop.counter }}</td>
                     <td>{{ item.Name }}</td>
                     <td>{{ item.Quantity }}</td>
-                    <td class="currency">Rs {{ item.Price }}</td>
-                    <td class="currency">Rs {{ item.Total_price }}</td>
+                    <td class="currency">₹ {{ item.Price }}</td>
+                    <td class="currency">₹ {{ item.Total_price }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
             <tfoot>
                 <tr class="total-row">
-                    <th colspan="4">Total</th>
-                    <td class="currency">-/ {{ total }}</td>
+                    <th colspan="4">Grand Total</th>
+                    <td class="currency">₹ {{ total }}</td>
                 </tr>
             </tfoot>
         </table>
 
         <div class="footer">
             <p>Thank you for shopping with us!</p>
-            <p>For any queries, please contact us at +91 7506480616</p>
+            <p>For any queries, please contact us at +91 7506480616 or email at vinodkirana@example.com</p>
         </div>
     </div>
 </body>

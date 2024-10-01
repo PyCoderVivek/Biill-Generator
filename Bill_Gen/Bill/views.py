@@ -1,3 +1,5 @@
+import random
+import uuid
 from django.shortcuts import render , redirect
 from django.http import HttpResponse
 from django.template.loader import get_template
@@ -109,10 +111,15 @@ def generate_pdf(Product_Bill, total):
     current_date = datetime.now()
     formatted_date = current_date.strftime('%d-%m-%y')
 
+    current_time = datetime.now().strftime('%d-%m-%Y;%H:%M')  # Format: YYYYMMDD-HHMMSS
+    random_no = random.randint(1,999)
+    invoice_number = f"VKS-{random_no}-->{current_time}"
+
     context = {
         'Product_Bill': Product_Bill,
         'total': total,
-        'current_date' : formatted_date
+        'current_date' : formatted_date,
+        'invoice_number': invoice_number,
     }
 
     # Render HTML to string
@@ -121,7 +128,7 @@ def generate_pdf(Product_Bill, total):
 
     # Generate the PDF
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="bill.pdf"'
+    response['Content-Disposition'] = 'attachment; filename="vinod-kirana-bill.pdf"'
 
     pisa_status = pisa.CreatePDF(html, dest=response)
 
